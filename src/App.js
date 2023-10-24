@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ThemeProvider } from '@mui/material/styles'
+import { theme } from "./themes/theme"
+import { DashboardContainer, MiddleContainer } from "./themes/styled"
+import { Routes, Route } from "react-router-dom"
+import { Dashboard, Map, Saves } from "./pages/allPages"
+import TopNav from "./components/TopNav"
+import WeatherDisplay from "./components/WeatherDisplay"
+import LeftNav from "./components/LeftNav"
+import Footer from "./components/Footer"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <ThemeProvider theme={theme}>
+        <TopNav />
+        <DashboardContainer>
+          <LeftNav />
+          <MiddleContainer p={2}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/saves" element={<Saves />} />
+            </Routes>
+          </MiddleContainer>
+          <WeatherDisplay />
+        </DashboardContainer>
+        <Footer />
+      </ThemeProvider>
+    </>
+  )
 }
 
-export default App;
+export default App
