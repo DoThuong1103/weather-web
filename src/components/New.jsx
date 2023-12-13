@@ -17,12 +17,11 @@ import Moment from "react-moment";
 import { Pagination } from "swiper/modules";
 const New = ({ news }) => {
   const shortText = (text, length) => {
-    if (text.length <= length) {
+    if (text?.length <= length) {
       return text;
     }
-    return text.substr(0, length) + "...";
+    return text?.substr(0, length) + "...";
   };
-  console.log(news);
   return (
     <Box p={4} pb={8}>
       <Typography mb={1} variant="h5">
@@ -58,22 +57,28 @@ const New = ({ news }) => {
           },
         }}
       >
-        {news?.value?.map((news, i) => {
+        {news?.news?.map((news, i) => {
           const dateToFormat = news?.datePublished;
-          console.log(news);
           return (
             <SwiperSlide>
               <Card
                 variant="outlined"
-                sx={{ maxWidth: 300, minHeight: 300 }}
+                sx={{
+                  maxWidth: 300,
+                  minHeight: 300,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  paddingBottom: "20px",
+                }}
               >
                 <CardContent>
                   <Stack spacing={1}>
                     <Typography variant="subtitle2">
-                      {shortText(news?.name, 50)}
+                      {shortText(news?.title, 40)}
                     </Typography>
                     <Typography variant="caption">
-                      {news?.provider?.[0]?.name}
+                      {news?.source}
                     </Typography>
                     <Typography variant="caption">
                       <Moment
@@ -84,7 +89,7 @@ const New = ({ news }) => {
                     <Divider light />
                     <Typography variant="body">
                       {" "}
-                      {shortText(news?.description, 100)}
+                      {shortText(news?.body, 80)}
                     </Typography>
                   </Stack>
                 </CardContent>

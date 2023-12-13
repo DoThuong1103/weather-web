@@ -37,10 +37,12 @@ const Map = () => {
       const getNews = await fetchNewApi(location); // Replace with your actual API fetch function
       setNews(getNews);
     }
-    newsData(location?.region)
+    newsData('Hanoi')
 
-  }, [location?.region])
+  }, [location?.name])
   if (isFetching || !isLoadingLocation) return <Loader />
+
+  console.log(news);
   return (
     <Box>
       <Stack spacing={2}>
